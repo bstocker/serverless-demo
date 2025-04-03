@@ -38,9 +38,9 @@ def handler(event, context):
         }
     elif route == "/contact" and method == "GET":
         return {
-            "statusCode": 200,
-            "headers": {"Content-Type": "application/json"},
-            "body": json.dumps({"message": "Route /contact en get Ok"})
+            response = table.scan()
+            data = response.get('Items', [])
+            return jsonify(data)
         }
     elif route == "/contact" and method == "POST":
         body = json.loads(event.get("body", "{}"))
