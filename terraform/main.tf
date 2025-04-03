@@ -86,6 +86,13 @@ resource "aws_api_gateway_method" "contact" {
   authorization = "NONE"
 }
 
+resource "aws_api_gateway_method" "contact_get" {
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  resource_id   = aws_api_gateway_resource.contact.id
+  http_method   = "GET"
+  authorization = "NONE"
+}
+
 resource "aws_api_gateway_integration" "hello" {
   rest_api_id             = aws_api_gateway_rest_api.api.id
   resource_id             = aws_api_gateway_resource.hello.id
@@ -104,6 +111,17 @@ resource "aws_api_gateway_integration" "contact" {
   uri                     = aws_lambda_function.api.invoke_arn
 }
 
+resource "aws_api_gateway_integration" "contact_get" {
+  rest_api_id             = aws_api_gateway_rest_api.api.id
+  resource_id             = aws_api_gateway_resource.contact.id
+  http_method             = aws_api_gateway_method.contact_get.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.api.invoke_arn
+}
+
+
+
 resource "aws_api_gateway_deployment" "deployment" {
   rest_api_id = aws_api_gateway_rest_api.api.id
 
@@ -113,8 +131,10 @@ resource "aws_api_gateway_deployment" "deployment" {
       aws_api_gateway_resource.contact.id,
       aws_api_gateway_method.hello.id,
       aws_api_gateway_method.contact.id,
+      aws_api_gateway_method.contact_get.id,  # Ajout de cette ligne
       aws_api_gateway_integration.hello.id,
-      aws_api_gateway_integration.contact.id
+      aws_api_gateway_integration.contact.id,
+      aws_api_gateway_integration.contact_get.id  # Ajout de cette ligne
     ]))
   }
 
@@ -124,7 +144,8 @@ resource "aws_api_gateway_deployment" "deployment" {
 
   depends_on = [
     aws_api_gateway_integration.hello,
-    aws_api_gateway_integration.contact
+    aws_api_gateway_integration.contact,
+    aws_api_gateway_integration.contact_get  # Ajout de cette ligne
   ]
 }
 
