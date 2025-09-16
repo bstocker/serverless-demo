@@ -8,10 +8,10 @@ provider "aws" {
   skip_requesting_account_id  = true
 
   endpoints {
-    lambda     = "http://ip10-0-3-4-cvn336rhp11h42sqv270-4566.direct.lab-boris.fr"
-    apigateway = "http://ip10-0-3-4-cvn336rhp11h42sqv270-4566.direct.lab-boris.fr"
-    iam        = "http://ip10-0-3-4-cvn336rhp11h42sqv270-4566.direct.lab-boris.fr"
-    dynamodb   = "http://ip10-0-3-4-cvn336rhp11h42sqv270-4566.direct.lab-boris.fr"
+    lambda     = "http://ip10-0-42-4-d34gventq0k1c7cormug-4566.direct.lab-boris.fr"
+    apigateway = "http://ip10-0-42-4-d34gventq0k1c7cormug-4566.direct.lab-boris.fr"
+    iam        = "http://ip10-0-42-4-d34gventq0k1c7cormug-4566.direct.lab-boris.fr"
+    dynamodb   = "http://ip10-0-42-4-d34gventq0k1c7cormug-4566.direct.lab-boris.fr"
   }
 }
 
