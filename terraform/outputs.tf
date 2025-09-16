@@ -3,5 +3,5 @@ output "api_id" {
 }
 
 output "lambda_env_table_name" {
-  value = aws_dynamodb_table.contacts.name
+  value = data.aws_dynamodb_table.contacts.name
 }
